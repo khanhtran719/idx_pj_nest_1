@@ -1,6 +1,8 @@
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
+import { DataPaginatedResponse, DataResponse } from './system/response';
+
 const config = new DocumentBuilder()
   .setTitle('NestJS API')
   .setDescription('The NestJS API description')
@@ -9,7 +11,7 @@ const config = new DocumentBuilder()
 
 export const createSwaggerDocument = (app: NestExpressApplication) => {
   const document = SwaggerModule.createDocument(app, config, {
-    extraModels: [],
+    extraModels: [DataResponse, DataPaginatedResponse],
   });
 
   SwaggerModule.setup('api-doc', app, document, {

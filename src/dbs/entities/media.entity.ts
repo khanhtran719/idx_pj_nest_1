@@ -2,13 +2,17 @@ import {
   Column,
   Entity,
   JoinColumn,
+  ManyToMany,
   ManyToOne,
   PrimaryGeneratedColumn,
+  Relation,
 } from 'typeorm';
 
-import { MEDIA_TYPE_ENUM } from '@/constants/enums/media-type.enum';
+import { MEDIA_STATUS_ENUM, MEDIA_TYPE_ENUM } from '@/constants';
 
 import { BaseEntity } from './base.entity';
+import { FolderEntity } from './folder.entity';
+import { MessageEntity } from './message.entity';
 
 @Entity('medias')
 export class MediaEntity extends BaseEntity {
@@ -18,6 +22,9 @@ export class MediaEntity extends BaseEntity {
 
   @Column('varchar', { name: 'name', nullable: false })
   name!: string;
+
+  @Column('varchar', { name: 'upload_id', nullable: false })
+  upload_id!: string;
 
   @Column('uuid', { name: 'folder_id', nullable: false })
   folder_id!: string;
@@ -40,15 +47,23 @@ export class MediaEntity extends BaseEntity {
 
   @Column('varchar', { name: 'mimetype', nullable: false })
   mimetype!: string;
+
+  @Column('varchar', { name: 'status', default: MEDIA_STATUS_ENUM.PENDING })
+  status!: MEDIA_STATUS_ENUM;
   // #endregion
 
   // #region RELATIONS
-  @ManyToOne(() => MediaEntity, (media) => media.id, {
+  @ManyToOne(() => FolderEntity, (folder) => folder.id, {
     onDelete: 'CASCADE',
     orphanedRowAction: 'delete',
   })
   @JoinColumn({ name: 'folder_id', referencedColumnName: 'id' })
-  folder!: MediaEntity;
+  folder!: Relation<FolderEntity>;
+
+  @ManyToMany(() => MessageEntity, (message) => message.medias, {
+    createForeignKeyConstraints: false,
+  })
+  messages: Relation<MessageEntity>[];
   // #endregion
 
   //#region OTHERS

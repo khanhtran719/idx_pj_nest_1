@@ -1,3 +1,3 @@
 export * from './env';
-export * from './hash';
 export * from './slugify';
+export * from './uuid';

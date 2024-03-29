@@ -1,8 +1,9 @@
 import { Global, Module } from '@nestjs/common';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
+import { join } from 'path';
 
 import { DbsConfig, RedisConfig } from '@/config';
-import { isProduction } from '@/utils';
+import { isProduction } from '@/utils/env';
 
 @Global()
 @Module({
@@ -21,8 +22,10 @@ import { isProduction } from '@/utils';
         database: _dbs_config.getDatabase(),
         autoLoadEntities: true,
         synchronize: false,
-        entities: [__dirname + '/**/dbs/entities/*.entity{.ts,.js}'],
-        subscribers: [],
+        entities: [join(__dirname, '../../dbs/entities/**/*.entity{.ts,.js}')],
+        subscribers: [
+          join(__dirname, '../../dbs/subscribers/**/*.subscriber{.ts,.js}'),
+        ],
         ssl: !_dbs_config.getSsl()
           ? undefined
           : {

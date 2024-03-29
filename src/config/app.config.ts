@@ -5,7 +5,7 @@ const NAME_CONFIG = 'app';
 
 export const app_config = registerAs(NAME_CONFIG, () => ({
   host: process.env.APP_HOST ?? 'localhost',
-  post: Number(process.env.APP_PORT) ?? 3001,
+  post: Number(process.env.APP_PORT) ?? 3009,
   api_document: process.env.APP_API_DOCUMENT === 'true',
 }));
 

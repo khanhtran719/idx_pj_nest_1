@@ -20,7 +20,9 @@ export class HashtagEntity extends BaseEntity {
   // #endregion
 
   // #region RELATIONS
-  @ManyToMany(() => BlogEntity, (blog) => blog.hashtags)
+  @ManyToMany(() => BlogEntity, (blog) => blog.hashtags, {
+    createForeignKeyConstraints: false,
+  })
   blogs: Relation<BlogEntity>[];
   // #endregion
 

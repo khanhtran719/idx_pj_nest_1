@@ -1,3 +1,4 @@
+export * from './data-source';
 export * from './dbs.module';
 export * from './exceptions';
 export * from './query-filter';

@@ -61,8 +61,8 @@ export class BlogEntity extends BaseEntity {
   @JoinColumn({ name: 'banner_id', referencedColumnName: 'id' })
   banner: Relation<MediaEntity> | null;
 
-  @ManyToMany(() => HashtagEntity, (hashtag) => hashtag.id, {
-    createForeignKeyConstraints: true,
+  @ManyToMany(() => HashtagEntity, (hashtag) => hashtag.blogs, {
+    createForeignKeyConstraints: false,
   })
   @JoinTable({
     name: 'blogs_hashtags',

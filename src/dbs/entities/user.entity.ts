@@ -1,7 +1,7 @@
 import {
   Column,
   Entity,
-  OneToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   Relation,
 } from 'typeorm';
@@ -9,7 +9,7 @@ import {
 import { ROLE_TYPE_ENUM } from '@/constants';
 
 import { BaseEntity } from './base.entity';
-import { ParticipantEntity } from './participant.entity';
+import { UserConversationEntity } from './user-conversation.entity';
 
 @Entity('users')
 export class UserEntity extends BaseEntity {
@@ -34,8 +34,14 @@ export class UserEntity extends BaseEntity {
   //#endregion
 
   //#region RELATIONS
-  @OneToOne(() => ParticipantEntity, (participant) => participant.id)
-  participant: Relation<ParticipantEntity> | null;
+  @OneToMany(
+    () => UserConversationEntity,
+    (user_conversation) => user_conversation.user,
+    {
+      createForeignKeyConstraints: false,
+    },
+  )
+  users_conversations: Relation<UserConversationEntity>[];
   //#endregion
 
   //#region OTHERS

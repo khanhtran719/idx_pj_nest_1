@@ -9,8 +9,11 @@ export const s3_config = registerAs(NAME_CONFIG, () => ({
   s3_access_key_id: process.env.S3_ACCESS_KEY_ID ?? undefined,
   s3_secret_access_key: process.env.S3_SECRET_ACCESS_KEY ?? undefined,
 
-  r2_bucket: process.env.R2_BUCKET ?? undefined,
   r2_bucket_url: process.env.R2_BUCKET_URL ?? undefined,
+
+  enpoint: `https://${process.env.S3_ACCOUNT_ID}.r2.cloudflarestorage.com`,
+
+  max_size: 1024 * 1024 * 10, // 10MB
 }));
 
 @Injectable()
@@ -36,11 +39,15 @@ export class S3Config {
     return this.config.s3_secret_access_key;
   }
 
-  getR2Bucket(): string | undefined {
-    return this.config.r2_bucket;
-  }
-
   getR2BucketUrl(): string | undefined {
     return this.config.r2_bucket_url;
+  }
+
+  getEndpoint(): string {
+    return this.config.enpoint;
+  }
+
+  getMaxSize(): number {
+    return this.config.max_size;
   }
 }

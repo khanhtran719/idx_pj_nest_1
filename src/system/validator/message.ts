@@ -7,6 +7,10 @@ export const message = {
 
   number: (field: string) => `${field} phải là số.`,
 
+  array: (field: string) => `${field} phải là mảng.`,
+
+  boolean: (field: string) => `${field} phải là boolean.`,
+
   min: {
     number: (field: string, min: number) =>
       `${field} phải bé hơn hoặc bằng ${min}`,
@@ -16,4 +20,6 @@ export const message = {
     number: (field: string, max: number) =>
       `${field} must be less than or equal to ${max}`,
   },
+
+  uuid: (field: string) => `${field} phải là UUID.`,
 };

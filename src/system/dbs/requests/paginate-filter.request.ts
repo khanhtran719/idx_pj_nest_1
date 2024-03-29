@@ -6,7 +6,7 @@ import { message } from '@/system/validator';
 
 import { FilterRequest } from './filter.request';
 
-export class PagianteFilterRequest extends FilterRequest {
+export class PaginateFilterRequest extends FilterRequest {
   @ApiProperty({ required: false, default: 1, type: 'number' })
   @Min(1, { message: message.min.number('Page', 1) })
   @IsInt({ message: message.number('Page') })

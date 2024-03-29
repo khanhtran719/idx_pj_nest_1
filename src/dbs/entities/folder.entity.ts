@@ -34,7 +34,7 @@ export class FolderEntity {
   @OneToMany(() => FolderEntity, (folder) => folder.parent, {
     cascade: true,
   })
-  children: Relation<FolderEntity>[];
+  childrens: Relation<FolderEntity>[];
 
   @OneToMany(() => MediaEntity, (media) => media.folder, {
     cascade: true,
